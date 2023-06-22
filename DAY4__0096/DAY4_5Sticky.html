@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>CSS Position sticky</title>
+        <style>
+            .box{
+                border: 2px solid red;
+                display: inline-block;
+                width: 150px;
+                height: 150px;
+                margin: 20px;
+            }
+            #box3 {
+                position: sticky;
+                right: 14px;
+                top: 15px;
+            }
+            .container{
+                border: 2px solid black;
+                background-color: yellowgreen;
+                height: 3500px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+        <div class="box" id="box1">1</div>
+        <div class="box" id="box2">2</div>
+        <div class="box" id="box3">3</div>
+        <div class="box" id="box4">4</div>
+        </div>
+    </body>
+</html>
