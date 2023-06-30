@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RegEx|Form Validation</title>
+<link rel="stylesheet" href="Day11_2FormRegEx.css">
+<script type="text/javascript">
+    function printError(elemID,hintMsg){
+        document.getElementById(elemID).innerHTML=hintMsg;
+    }
+//defining  errorVariables with default value:
+var nameErr=emailErr=mobileErr=countryErr=genderErr=true;
+
+//Function for validation form
+function validateform(){
+    //retrieving value to validte form
+    var name=document.contactForm.name.value;
+    var email=document.contactForm.email.value; 
+    var mobile=document.contactForm.mobile.value;
+    var country=document.contactForm.country.value;
+    var gender=document.contactForm.gender.value; 
+    var hobbies=[];
+    var checkboxes=document.getElementsByName("hobbies[]");
+    for(var i=0;i<checkboxes.length;i++){
+        if(checkboxes[i].checked){ //Will put value in hobbies[]
+            hobbies.push(checkboxes[i].value)
+        }
+    }
+//.Validation for full name:
+if(name==" "){
+    printError("nameErr","Enter Your Name ");
+}else{
+    var regex=/^[A-z\s]+$/;
+    if(regex.test(name)===false){
+        printError("nameErr","Enter Your Name ");
+    }else{
+        printError("nameErr","");
+        nameErr=false;
+    }
+}
+///Validation for Email :
+if(email==" "){
+    printError("emailErr","Enter Your Email ");
+}else{
+    var regex=/^\S+@\S+\.\S+$/;
+    if(regex.test(email)===false){
+        printError("emailErr","Enter Your Email ");
+    }else{
+        printError("emailErr","");
+        emailErr=false;
+    }
+}
+//Validation for Contact no. :
+if(mobile==" "){
+    printError("mobileErr","Enter Your Mobile no. ");
+}else{
+    // var regex=/^[0-9]d{10}$/;
+    var regex=/[789][0-9]{9}/;
+    if(regex.test(mobile)===false){
+        printError("mobileErr","Enter Your Mobile no. ");
+    }else{
+        printError("mobileErr","");
+        mobileErr=false;
+    }
+}
+//Validation for Country :
+if(country==" "){
+    printError("countryErr","Enter Your Country ");
+}else{
+    printError("countryErr","");
+    countryErr=false;
+}
+//Validation for Gender :
+if(country==" "){
+    printError("genderErr","Gender likh ");
+}else{
+    printError("genderErr","");
+    countryErr=false;
+}
+//prevent the form from being submit if there are any errors
+if((nameErr || emailErr || mobileErr || genderErr || countryErr)==true){
+    return false;
+}else{
+    var dataPreview = "You've entered the following details: \n"+
+                      "Full Name : "+name +"\n"+
+                      "Email Address : "+email+"\n"+
+                      "Mobile Number : "+mobile+"\n"+
+                      "Country : "+country+"\n"+
+                      "Gender : "+gender+"\n";
+        if(hobbies.length){
+            dataPreview += "Hobbies : "+ hobbies.join(" , ");
+        }
+        alert(dataPreview); 
+    }             
+};        
+</script>
+</head>
+<body>
+<form name="contactForm" onsubmit="return validateform()"  action="confirmation.html" method="get">
+    <h2>Application Form</h2>
+    <div class="row">
+        <label>Full Name</label>
+        <input type="text" name="name">
+        <div class="error" id="nameErr"></div>
+    </div>
+    <div class="row">
+        <label>Email Address</label>
+        <input type="text" name="email">
+        <div class="error" id="emailErr"></div>
+    </div>
+    <div class="row">
+        <label>Mobile Number</label>
+        <input type="text" name="mobile" maxlength="10">
+        <div class="error" id="mobileErr"></div>
+    </div>
+    <div class="row">
+        <label>Country</label>
+        <select name="country">
+            <option>Select</option>
+            <option>Australia</option>
+            <option>India</option>
+            <option>United States</option>
+            <option>United Kingdom</option>
+        </select>
+        <div class="error" id="countryErr"></div>
+    </div>
+    <div class="row">
+        <label>Gender</label>
+        <div class="form-inline">
+            <label><input type="radio" name="gender" value="male"> Male</label>
+            <label><input type="radio" name="gender" value="female"> Female</label>
+        </div>
+        <div class="error" id="genderErr"></div>
+    </div>
+    <div class="row">
+        <label>Hobbies <i>(Optional)</i></label>
+        <div class="form-inline">
+            <label><input type="checkbox" name="hobbies[]" value="sports"> Sports</label>
+            <label><input type="checkbox" name="hobbies[]" value="movies"> Movies</label>
+            <label><input type="checkbox" name="hobbies[]" value="music"> Music</label>
+        </div>
+    </div>
+    <div class="row">
+        <input type="submit" value="Submit">
+    </div>
+</form>
+</body>
+</html>
